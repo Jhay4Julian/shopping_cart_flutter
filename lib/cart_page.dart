@@ -9,7 +9,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  final List<Map<String, dynamic>> cartList = [
+  final List<Map<String, dynamic>> _defaultCart = [
     {
       "name": "Lenovo IdeaPad 1",
       "image": "assets/images/lenovo.jpg",
@@ -36,6 +36,20 @@ class _CartPageState extends State<CartPage> {
     },
   ];
 
+  List<Map<String, dynamic>> _currentCart = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _currentCart = List.from(_defaultCart);
+  }
+
+  void refillCart() {
+    setState(() {
+      _currentCart = List.from(_defaultCart);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +67,7 @@ class _CartPageState extends State<CartPage> {
                   size: 40,
                   color: Colors.white,
                 ),
-                cartList.isEmpty
+                _currentCart.isEmpty
                     ? const SizedBox.shrink()
                     : Positioned(
                         top: 11,
@@ -61,7 +75,7 @@ class _CartPageState extends State<CartPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Text(
-                            '${cartList.length}',
+                            '${_currentCart.length}',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 14,
@@ -88,18 +102,34 @@ class _CartPageState extends State<CartPage> {
               ),
             ),
             const SizedBox(height: 35),
-            cartList.isEmpty
-                ? const Padding(
-                    padding: EdgeInsets.all(50),
+            _currentCart.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(50),
                     child: Center(
-                      child: Text(
-                        'Your bag is empty.',
-                        style: TextStyle(fontSize: 15),
+                      child: Column(
+                        children: [
+                          const Text(
+                            'Your bag is empty.',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          const SizedBox(height: 20),
+                          MaterialButton(
+                            color: Theme.of(context).primaryColor,
+                            onPressed: refillCart,
+                            child: const Text(
+                              'Refill',
+                              style: TextStyle(
+                                color: Colors.white,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   )
                 : Column(
-                    children: cartList.map((cartItem) {
+                    children: _currentCart.map((cartItem) {
                       final String? name = cartItem['name'];
                       final String? image = cartItem['image'];
                       final double? price = cartItem['price'];
@@ -108,7 +138,7 @@ class _CartPageState extends State<CartPage> {
                       // Remove Cart Item
                       void removeItem() {
                         setState(() {
-                          cartList.remove(cartItem);
+                          _currentCart.remove(cartItem);
                         });
                       }
 
