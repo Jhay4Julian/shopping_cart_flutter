@@ -56,8 +56,8 @@ class _CartCardState extends State<CartCard> {
                     // Product Name, Price & Remove button
                     Expanded(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Product Name
                           Text(
@@ -97,8 +97,7 @@ class _CartCardState extends State<CartCard> {
 
               // Unit count Increase & Decrease buttons
               Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Increase Unit
                   InkWell(
@@ -106,13 +105,13 @@ class _CartCardState extends State<CartCard> {
                     child: const Icon(
                       Icons.keyboard_arrow_up_rounded,
                       color: Colors.indigo,
-                      size: 32,
+                      size: 28,
                     ),
                   ),
-
+                  // Unit
                   Text(
                     widget.unit,
-                    style: const TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 18),
                   ),
                   // Decrease Unit
                   InkWell(
@@ -120,7 +119,7 @@ class _CartCardState extends State<CartCard> {
                     child: const Icon(
                       Icons.keyboard_arrow_down_rounded,
                       color: Colors.indigo,
-                      size: 32,
+                      size: 28,
                     ),
                   )
                 ],
