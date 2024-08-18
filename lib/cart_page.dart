@@ -43,6 +43,37 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Stack(
+              children: [
+                const Icon(
+                  Icons.shopping_bag_rounded,
+                  size: 40,
+                  color: Colors.white,
+                ),
+                cartList.isEmpty
+                    ? const SizedBox.shrink()
+                    : Positioned(
+                        top: 11,
+                        right: 11,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Text(
+                            '${cartList.length}',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      )
+              ],
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
