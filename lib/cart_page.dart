@@ -74,14 +74,37 @@ class _CartPageState extends State<CartPage> {
                       final double? price = cartItem['price'];
                       int unit = cartItem['unit'];
 
+                      // Remove Cart Item
+                      void removeItem() {
+                        setState(() {
+                          cartList.remove(cartItem);
+                        });
+                      }
+
+                      // Increase Cart Item
+                      void increment() {
+                        setState(() {
+                          unit++;
+                          cartItem['unit'] = unit;
+                        });
+                      }
+
+                      // Decrease Cart Item
+                      void decrement() {
+                        setState(() {
+                          unit--;
+                          cartItem['unit'] = unit;
+                        });
+                      }
+
                       return CartCard(
                         name: '$name',
                         image: '$image',
                         price: '$price',
                         unit: '$unit',
-                        onRemove: () {},
-                        onAdd: () {},
-                        onMinus: () {},
+                        onRemove: removeItem,
+                        onAdd: increment,
+                        onMinus: decrement,
                       );
                     }).toList(),
                   )
