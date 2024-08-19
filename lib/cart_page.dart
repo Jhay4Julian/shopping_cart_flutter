@@ -64,6 +64,14 @@ class _CartPageState extends State<CartPage> {
     return total;
   }
 
+  int getCartCount() {
+    int count = 0;
+    for (var item in _currentCart) {
+      count += item['unit'] as int;
+    }
+    return count;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +93,7 @@ class _CartPageState extends State<CartPage> {
           Padding(
             padding: const EdgeInsets.only(right: 15),
             child: Stack(
+              alignment: Alignment.bottomCenter,
               children: [
                 const Icon(
                   Icons.shopping_bag_rounded,
@@ -93,18 +102,14 @@ class _CartPageState extends State<CartPage> {
                 ),
                 _currentCart.isEmpty
                     ? const SizedBox.shrink()
-                    : Positioned(
-                        top: 11,
-                        right: 11,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                            '${_currentCart.length}',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
+                    : Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text(
+                          '${getCartCount()}',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       )
