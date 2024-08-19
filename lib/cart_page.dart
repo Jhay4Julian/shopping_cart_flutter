@@ -34,6 +34,12 @@ class _CartPageState extends State<CartPage> {
       "price": 1598.99,
       "unit": 1,
     },
+    {
+      "name": "Dell Latitude E7500",
+      "image": "assets/images/asus.jpg",
+      "price": 319.99,
+      "unit": 1,
+    },
   ];
 
   List<Map<String, dynamic>> _currentCart = [];
@@ -98,7 +104,6 @@ class _CartPageState extends State<CartPage> {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Column(
@@ -139,54 +144,62 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                       )
-                    : Column(
-                        children: _currentCart.map((cartItem) {
-                          final String? name = cartItem['name'];
-                          final String? image = cartItem['image'];
-                          final double? price = cartItem['price'];
-                          int unit = cartItem['unit'];
+                    : Expanded(
+                        child: ListView.builder(
+                          itemCount: 1,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: _currentCart.map((cartItem) {
+                                final String? name = cartItem['name'];
+                                final String? image = cartItem['image'];
+                                final double? price = cartItem['price'];
+                                int unit = cartItem['unit'];
 
-                          // Remove Cart Item
-                          void removeItem() {
-                            setState(() {
-                              _currentCart.remove(cartItem);
-                            });
-                          }
+                                // Remove Cart Item
+                                void removeItem() {
+                                  setState(() {
+                                    _currentCart.remove(cartItem);
+                                  });
+                                }
 
-                          // Increase Cart Item
-                          void increment() {
-                            setState(() {
-                              unit++;
-                              cartItem['unit'] = unit;
-                            });
-                          }
+                                // Increase Cart Item
+                                void increment() {
+                                  setState(() {
+                                    unit++;
+                                    cartItem['unit'] = unit;
+                                  });
+                                }
 
-                          // Decrease Cart Item
-                          void decrement() {
-                            setState(() {
-                              if (unit > 1) {
-                                unit--;
-                              }
-                              cartItem['unit'] = unit;
-                            });
-                          }
+                                // Decrease Cart Item
+                                void decrement() {
+                                  setState(() {
+                                    if (unit > 1) {
+                                      unit--;
+                                    }
+                                    cartItem['unit'] = unit;
+                                  });
+                                }
 
-                          return CartCard(
-                            name: '$name',
-                            image: '$image',
-                            price: '$price',
-                            unit: '$unit',
-                            onRemove: removeItem,
-                            onAdd: increment,
-                            onMinus: decrement,
-                          );
-                        }).toList(),
+                                return CartCard(
+                                  name: '$name',
+                                  image: '$image',
+                                  price: '$price',
+                                  unit: '$unit',
+                                  onRemove: removeItem,
+                                  onAdd: increment,
+                                  onMinus: decrement,
+                                );
+                              }).toList(),
+                            );
+                          },
+                        ),
                       ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding:
+                const EdgeInsets.only(left: 20, top: 5, right: 20, bottom: 10),
             child: Column(
               children: [
                 const Divider(),
@@ -199,7 +212,7 @@ class _CartPageState extends State<CartPage> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        letterSpacing: 1,
+                        letterSpacing: 1.2,
                       ),
                     ),
                     Container(
@@ -209,19 +222,21 @@ class _CartPageState extends State<CartPage> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 2,
-                          horizontal: 5,
+                          horizontal: 6,
                         ),
                         child: Text(
                           '\$${calculateTotal().toStringAsFixed(2)}',
                           style: const TextStyle(
                             color: Colors.white,
-                            letterSpacing: 1,
+                            fontSize: 15,
+                            letterSpacing: 1.2,
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10, top: 10),
                   child: MaterialButton(
