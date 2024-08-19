@@ -71,6 +71,16 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
+        title: const Text(
+          'PC Hub',
+          style: TextStyle(
+            color: Colors.white,
+            letterSpacing: 2,
+            fontWeight: FontWeight.bold,
+            fontSize: 27,
+          ),
+        ),
+        centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
@@ -112,7 +122,7 @@ class _CartPageState extends State<CartPage> {
                 const Text(
                   'YOUR BAG',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 25,
                     fontWeight: FontWeight.w400,
                     letterSpacing: 1,
                   ),
